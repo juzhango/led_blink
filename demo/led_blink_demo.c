@@ -4,7 +4,7 @@
 #include <led_blink.h>
 
 st_led_node_t *led1 = RT_NULL;
-static init led_blink_demo_init(void)
+static int led_blink_demo_init(void)
 {
     st_led_pin_t led_pin;
     led_pin.pin = PKG_LED_BLINK_DEMO_GPIO_PIN;
