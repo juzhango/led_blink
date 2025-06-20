@@ -27,7 +27,7 @@ typedef struct led_node
     struct led_node *next;
 } st_led_node_t;
 
-st_led_node_t *jz_led_register(const st_led_pin_t *led, unsigned int on_time, unsigned int off_time, unsigned int count);
-void jz_led_unregister(st_led_node_t *node);
+st_led_node_t *led_register(const st_led_pin_t *led, unsigned int on_time, unsigned int off_time, unsigned int count);
+void led_unregister(st_led_node_t *node);
 
 #endif

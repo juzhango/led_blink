@@ -3,7 +3,7 @@
 #include <rtdevice.h>
 #include <board.h>
 #include <stdio.h>
-#include "jz_led_blink.h"
+#include "led_blink.h"
 
 static rt_mutex_t led_list_lock_;
 static st_led_node_t *led_list_head_ = NULL;
@@ -23,7 +23,7 @@ static void led_off(const st_led_pin_t *led)
     rt_pin_write(led->pin, !led->active_level);
 }
 
-st_led_node_t *jz_led_register(const st_led_pin_t *led, unsigned int on_time, unsigned int off_time, unsigned int count)
+st_led_node_t *led_register(const st_led_pin_t *led, unsigned int on_time, unsigned int off_time, unsigned int count)
 {
     st_led_node_t *new_led = rt_malloc(sizeof(st_led_node_t));
     if (!new_led)
@@ -183,7 +183,7 @@ void led_blink_daemon_(void *parameter)
 static int led_blink_init(void)
 {
     rt_thread_t thread;
-    led_list_lock_ = rt_mutex_create("jz_led_lock", 0);
+    led_list_lock_ = rt_mutex_create("led_lock", 0);
 
     thread = rt_thread_create("led_blink_daemon_",
                               led_blink_daemon_,
