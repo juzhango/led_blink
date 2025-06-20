@@ -1,33 +1,38 @@
-#ifndef _LED_BLINK_H_
-#define _LED_BLINK_H_
+#ifndef __LED_BLINK_H__
+#define __LED_BLINK_H__
 
-typedef enum
-{
-    e_led_state_blink_stopped = 0,
-    e_led_state_blink_on,
+#include <rtthread.h>
+
+typedef enum {
+    e_led_state_blink_stopped,
     e_led_state_blink_off,
+    e_led_state_blink_on
 } e_led_state_t;
 
-typedef struct
-{
+typedef struct st_led_pin_t {
     rt_base_t pin;
-    rt_ssize_t active_level;
+    rt_ssize_t active_level;  /**< 0: Low level active, 1: High level active */
 } st_led_pin_t;
 
-typedef struct led_node
-{
+typedef struct st_led_node_t {
     st_led_pin_t led;
     unsigned int on_time;
     unsigned int off_time;
     unsigned int count;
-    unsigned long next_change_time;
     unsigned int current_count;
-
+    unsigned long next_change_time;
     e_led_state_t state;
-    struct led_node *next;
+    struct st_led_node_t *next;
 } st_led_node_t;
 
-st_led_node_t *led_register(const st_led_pin_t *led, unsigned int on_time, unsigned int off_time, unsigned int count);
+/* Public APIs */
+st_led_node_t *led_register(rt_base_t pin, rt_ssize_t active_level);
 void led_unregister(st_led_node_t *node);
 
-#endif
+void led_blink_start(st_led_node_t *node, unsigned int on_time, unsigned int off_time, unsigned int count);
+void led_blink_stop(st_led_node_t *node);
+
+void led_on(const st_led_pin_t *led);
+void led_off(const st_led_pin_t *led);
+
+#endif /* __LED_BLINK_H__ */
