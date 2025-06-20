@@ -1,3 +1,7 @@
+#include <rtthread.h>
+#include <rtdevice.h>
+#include <board.h>
+#include "led_blink.h"
 static st_led_node_t *led1 = RT_NULL;
 static st_led_node_t *led2 = RT_NULL;
 
