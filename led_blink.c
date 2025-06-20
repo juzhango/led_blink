@@ -185,7 +185,6 @@ void led_blink_stop(st_led_node_t *node)
  */
 void led_blink_daemon_(void *parameter)
 {
-    rt_kprintf("led_blink_daemon_ started\n");
 
     while (1)
     {
@@ -294,7 +293,7 @@ static int led_blink_init(void)
         return -1;
 
     rt_thread_startup(thread);
-    rt_kprintf("LED blink module initialized successfully.\n");
+
     return 0;
 }
 INIT_COMPONENT_EXPORT(led_blink_init); // 使用标准初始化导出
