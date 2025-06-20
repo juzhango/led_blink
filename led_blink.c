@@ -287,8 +287,8 @@ static int led_blink_init(void)
     thread = rt_thread_create("led_blink_daemon",
                               led_blink_daemon_,
                               RT_NULL,
-                              512,                        // 栈大小减小
-                              RT_THREAD_PRIORITY_DEFAULT, // 默认优先级
+                              512,
+                              RT_THREAD_PRIORITY_MAX / 2,
                               20);
     if (!thread)
         return -1;
